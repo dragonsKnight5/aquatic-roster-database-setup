@@ -50,17 +50,17 @@ public class main extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
+        userTxtbx = new javax.swing.JTextField();
+        fNameTxtbx = new javax.swing.JTextField();
+        lNameTxtbx = new javax.swing.JTextField();
         dept1Combo = new javax.swing.JComboBox<>();
         dept2Combo = new javax.swing.JComboBox<>();
         dept3Combo = new javax.swing.JComboBox<>();
         passTxtbx = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
+        userBttn = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JSeparator();
-        jButton2 = new javax.swing.JButton();
-        databaseLbl1 = new javax.swing.JLabel();
+        closeBttn = new javax.swing.JButton();
+        userLbl = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -125,13 +125,23 @@ public class main extends javax.swing.JFrame {
 
         dept3Combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "None", "LTS", "Lifeguard" }));
 
-        jButton1.setText("Create First User");
-        jButton1.setEnabled(false);
+        userBttn.setText("Create First User");
+        userBttn.setEnabled(false);
+        userBttn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userBttnActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Close");
+        closeBttn.setText("Close");
+        closeBttn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                closeBttnActionPerformed(evt);
+            }
+        });
 
-        databaseLbl1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        databaseLbl1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        userLbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        userLbl.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -184,11 +194,11 @@ public class main extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(fNameTxtbx, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(userTxtbx, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel10)
@@ -197,20 +207,20 @@ public class main extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(dept1Combo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jTextField6, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                                    .addComponent(lNameTxtbx, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
                                     .addComponent(dept2Combo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(dept3Combo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(62, 62, 62))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(databaseLbl1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(userLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(userBttn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jSeparator3)
                         .addContainerGap())))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addComponent(closeBttn)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -255,14 +265,14 @@ public class main extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(userTxtbx, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(fNameTxtbx, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel9))
                         .addGap(33, 33, 33))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lNameTxtbx, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel10)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
@@ -280,13 +290,13 @@ public class main extends javax.swing.JFrame {
                     .addComponent(jLabel14)
                     .addComponent(passTxtbx, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(userBttn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(databaseLbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(userLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(closeBttn)
                 .addContainerGap())
         );
 
@@ -312,6 +322,7 @@ public class main extends javax.swing.JFrame {
     private void databaseBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_databaseBttnActionPerformed
         String dataPassword = new String (databasePasswordTxtbx.getPassword());
         String password = new String (passwordTxtbx.getPassword());
+        System.out.println("Create Database");
         boolean result = connection.createDatabase();
         if (result)
         {
@@ -320,22 +331,46 @@ public class main extends javax.swing.JFrame {
             
             if (result)
             {
+                System.out.println("Create User Table");
                 result = connection.createUserTable();
                 if (result)
                 {
+                    System.out.println("Create Lifeguard Table");
                     result = connection.createLifeguardTable();
                     
                     if (result)
                     {
+                        System.out.println("Create LTS Shift Table");
                         result = connection.createLTSTable();
                         
                         if (result)
                         {
+                            System.out.println("Create LTS Cover Table");
                              result = connection.createCoversTable();
                              
                              if (result)
                              {
-                                 databaseLbl.setText("tables created");
+                                 System.out.println("Add Keys And Constraints To Lifeguard Table");
+                                 result = connection.alterLifeguardTable();
+                                 
+                                 if (result)
+                                 {
+                                     System.out.println("Create Database User");
+                                     result = connection.databaseUser(networkTxtbx.getText(), dataPassword);
+                                     if (result)
+                                     {
+                                         System.out.println("Grant Database User Privilages");
+                                        result = connection.databaseGrants(networkTxtbx.getText());
+                                        
+                                        if (result)
+                                        {
+                                            databaseLbl.setText("Database Configured");
+                                            
+                                            databaseBttn.setEnabled(false);
+                                            userBttn.setEnabled(true);
+                                        }
+                                     }
+                                 }
                              }
                         }
                     }
@@ -343,6 +378,23 @@ public class main extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_databaseBttnActionPerformed
+
+    private void userBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userBttnActionPerformed
+        String pass = new String (passTxtbx.getPassword());
+        boolean supervisor = true;
+        boolean result = false;
+        result = connection.addUser(userTxtbx.getText(), fNameTxtbx.getText(), lNameTxtbx.getText(), (String)dept1Combo.getSelectedItem(), (String)dept2Combo.getSelectedItem(), (String)dept3Combo.getSelectedItem(), supervisor, pass);
+        
+        if (result)
+        {
+            userBttn.setEnabled(false);
+            userLbl.setText("First User Created");
+        }
+    }//GEN-LAST:event_userBttnActionPerformed
+
+    private void closeBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBttnActionPerformed
+        dispose();
+    }//GEN-LAST:event_closeBttnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -381,17 +433,16 @@ public class main extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField addressTxtbx;
+    private javax.swing.JButton closeBttn;
     private javax.swing.JButton connectBttn;
     private javax.swing.JLabel connectLbl;
     private javax.swing.JButton databaseBttn;
     private javax.swing.JLabel databaseLbl;
-    private javax.swing.JLabel databaseLbl1;
     private javax.swing.JPasswordField databasePasswordTxtbx;
     private javax.swing.JComboBox<String> dept1Combo;
     private javax.swing.JComboBox<String> dept2Combo;
     private javax.swing.JComboBox<String> dept3Combo;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JTextField fNameTxtbx;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -408,12 +459,13 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
+    private javax.swing.JTextField lNameTxtbx;
     private javax.swing.JTextField networkTxtbx;
     private javax.swing.JPasswordField passTxtbx;
     private javax.swing.JPasswordField passwordTxtbx;
+    private javax.swing.JButton userBttn;
+    private javax.swing.JLabel userLbl;
+    private javax.swing.JTextField userTxtbx;
     private javax.swing.JTextField usernameTxtbx;
     // End of variables declaration//GEN-END:variables
 }

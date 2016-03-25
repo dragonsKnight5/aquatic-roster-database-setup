@@ -70,7 +70,7 @@ public class dbConnection
         }
         catch (SQLException ex)
         {
-            JOptionPane.showMessageDialog(null, ex.getMessage() + ex.getSQLState() + ex.getErrorCode());
+            JOptionPane.showMessageDialog(null, ex);
         }
     }
      
@@ -85,10 +85,10 @@ public class dbConnection
          }
          catch (SQLException ex)
         {
-            JOptionPane.showMessageDialog(null, command + ex.getMessage() + ex.getSQLState() + ex.getErrorCode());
+            JOptionPane.showMessageDialog(null, command + ex);
         }
          boolean result = false ;
-         if (count ==1)
+         if (count == 1)
          {
              result = true;
          }
@@ -119,7 +119,7 @@ public class dbConnection
          }
          catch (SQLException ex)
         {
-            JOptionPane.showMessageDialog(null, command + ex.getMessage() + ex.getSQLState() + ex.getErrorCode());
+            JOptionPane.showMessageDialog(null, command + ex);
         }
          boolean result = false ;
          if (count == 0)
@@ -150,7 +150,7 @@ public class dbConnection
          }
          catch (SQLException ex)
         {
-            JOptionPane.showMessageDialog(null, command + ex.getMessage() + ex.getSQLState() + ex.getErrorCode());
+            JOptionPane.showMessageDialog(null, command + ex);
         }
          boolean result = false ;
          if (count == 0)
@@ -181,7 +181,7 @@ public class dbConnection
          }
          catch (SQLException ex)
         {
-            JOptionPane.showMessageDialog(null, command + ex.getMessage() + ex.getSQLState() + ex.getErrorCode());
+            JOptionPane.showMessageDialog(null, command + ex);
         }
          boolean result = false ;
          if (count == 0)
@@ -211,7 +211,7 @@ public class dbConnection
          }
          catch (SQLException ex)
         {
-            JOptionPane.showMessageDialog(null, command + ex.getMessage() + ex.getSQLState() + ex.getErrorCode());
+            JOptionPane.showMessageDialog(null, command + ex);
         }
          boolean result = false ;
          if (count == 0)
@@ -221,35 +221,96 @@ public class dbConnection
         return result;
      }
           
-     public int addUser(String addCommand)
+     public boolean  addUser(String username, String firstName, String lastName, String department1, String department2, String department3, boolean supervisor, String password)
      {
          int count = 0;
-         
-         try
-         {
-             ps1 = conn.prepareStatement(addCommand);
-             count = ps1.executeUpdate();
-         }
-         catch (SQLException ex)
-        {
-            JOptionPane.showMessageDialog(null, addCommand + ex.getMessage() + ex.getSQLState() + ex.getErrorCode());
-        }
-        return count;
-     }
-     
-     public ResultSet lookup(String command)
-     {
-         ResultSet lookup = null;
+         String command = "insert into users (username, first_name, last_name, department_1, department_2, department_3, supervisor, password) values  " 
+                +"(\"" + username + "\", \"" + firstName + "\", \"" + lastName + "\", \"" + department1 + "\", \"" + department2 + "\", \"" + department3 + "\", " + supervisor + ", \"" + password + "\")";
          
          try
          {
              ps1 = conn.prepareStatement(command);
-             lookup = ps1.executeQuery();
+             count = ps1.executeUpdate();
          }
          catch (SQLException ex)
+        {
+            JOptionPane.showMessageDialog(null, command + ex);
+        }
+         boolean result = false;
+         if (count == 1)
          {
-             JOptionPane.showMessageDialog(null, ex.getMessage() + ex.getSQLState() + ex.getErrorCode());
+             result = true;
          }
-         return lookup;
+        return result;
+     }
+     
+     public boolean alterLifeguardTable()
+     {
+         int count = 1;
+         String command = "ALTER TABLE `lifeguard`" +
+        "  ADD KEY `staff1` (`staff1`)," +
+        "  ADD CONSTRAINT `staffFK` FOREIGN KEY (`staff1`) REFERENCES `users` (`username`)";
+         
+         try
+         {
+             ps1 = conn.prepareStatement(command);
+             count = ps1.executeUpdate();
+         }
+         catch (SQLException ex)
+        {
+            JOptionPane.showMessageDialog(null, command + ex);
+        }
+         boolean result = false ;
+         if (count == 0)
+         {
+             result = true;
+         }
+        return result;
+     }
+     
+     public boolean databaseUser(String network, String databasePassword)
+     {
+         int count = 1;
+         String command = "create user \'staff\'@\'" + network + "\' identified by \'" + databasePassword +"\'";
+         System.out.println(command);
+         try
+         {
+             ps1 = conn.prepareStatement(command);
+             count = ps1.executeUpdate();
+         }
+         catch (SQLException ex)
+        {
+            JOptionPane.showMessageDialog(null, command + ex);
+            System.out.println(ex);
+        }
+         boolean result = false ;
+         if (count == 0)
+         {
+             result = true;
+         }
+        return result;
+     }
+     
+     public boolean databaseGrants(String network)
+     {
+         int count = 1;
+         String command = "grant select, insert, delete, alter on staff.* to \'staff\'@\'" + network +"\'";
+         System.out.println(command);
+         try
+         {
+             ps1 = conn.prepareStatement(command);
+             count = ps1.executeUpdate();
+         }
+         catch (SQLException ex)
+        {
+            JOptionPane.showMessageDialog(null, command + ex);
+            System.out.println(ex);
+        }
+         boolean result = false ;
+         if (count == 0)
+         {
+             result = true;
+         }
+        return result;
      }
 }
