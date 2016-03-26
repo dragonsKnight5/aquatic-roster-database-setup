@@ -1,7 +1,17 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright 2016 james.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 /**
@@ -61,6 +71,9 @@ public class main extends javax.swing.JFrame {
         jSeparator3 = new javax.swing.JSeparator();
         closeBttn = new javax.swing.JButton();
         userLbl = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,13 +84,28 @@ public class main extends javax.swing.JFrame {
         jLabel2.setText("User:");
 
         usernameTxtbx.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        usernameTxtbx.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                usernameTxtbxKeyPressed(evt);
+            }
+        });
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Password:");
 
         passwordTxtbx.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        passwordTxtbx.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                passwordTxtbxKeyPressed(evt);
+            }
+        });
 
         addressTxtbx.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        addressTxtbx.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                addressTxtbxKeyPressed(evt);
+            }
+        });
 
         connectBttn.setText("Connect");
         connectBttn.addActionListener(new java.awt.event.ActionListener() {
@@ -90,7 +118,19 @@ public class main extends javax.swing.JFrame {
 
         jLabel5.setText("Network:");
 
+        networkTxtbx.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                networkTxtbxKeyPressed(evt);
+            }
+        });
+
         jLabel6.setText("Database User Password:");
+
+        databasePasswordTxtbx.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                databasePasswordTxtbxKeyPressed(evt);
+            }
+        });
 
         databaseBttn.setText("Setup Database");
         databaseBttn.setEnabled(false);
@@ -119,11 +159,50 @@ public class main extends javax.swing.JFrame {
 
         jLabel15.setText("Example: 192.168.1.%");
 
+        userTxtbx.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                userTxtbxKeyPressed(evt);
+            }
+        });
+
+        fNameTxtbx.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                fNameTxtbxKeyPressed(evt);
+            }
+        });
+
+        lNameTxtbx.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                lNameTxtbxKeyPressed(evt);
+            }
+        });
+
         dept1Combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "LTS", "Lifeguard" }));
+        dept1Combo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                dept1ComboKeyPressed(evt);
+            }
+        });
 
         dept2Combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "None", "LTS", "Lifeguard" }));
+        dept2Combo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                dept2ComboKeyPressed(evt);
+            }
+        });
 
         dept3Combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "None", "LTS", "Lifeguard" }));
+        dept3Combo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                dept3ComboKeyPressed(evt);
+            }
+        });
+
+        passTxtbx.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                passTxtbxKeyPressed(evt);
+            }
+        });
 
         userBttn.setText("Create First User");
         userBttn.setEnabled(false);
@@ -142,6 +221,20 @@ public class main extends javax.swing.JFrame {
 
         userLbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         userLbl.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jMenu1.setText("File");
+
+        jMenuItem1.setText("Close");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -312,6 +405,7 @@ public class main extends javax.swing.JFrame {
             connectBttn.setEnabled(false);
             databaseBttn.setEnabled(true);
             connectLbl.setText("Connected To Server");
+            networkTxtbx.requestFocus();
         }
         else
         {
@@ -368,6 +462,7 @@ public class main extends javax.swing.JFrame {
                                             
                                             databaseBttn.setEnabled(false);
                                             userBttn.setEnabled(true);
+                                            userTxtbx.requestFocus();
                                         }
                                      }
                                  }
@@ -395,6 +490,94 @@ public class main extends javax.swing.JFrame {
     private void closeBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBttnActionPerformed
         dispose();
     }//GEN-LAST:event_closeBttnActionPerformed
+
+    private void addressTxtbxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_addressTxtbxKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER)
+        {
+            usernameTxtbx.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_addressTxtbxKeyPressed
+
+    private void usernameTxtbxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usernameTxtbxKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER)
+        {
+            passwordTxtbx.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_usernameTxtbxKeyPressed
+
+    private void passwordTxtbxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordTxtbxKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER)
+        {
+            connectBttn.doClick();
+        }
+    }//GEN-LAST:event_passwordTxtbxKeyPressed
+
+    private void networkTxtbxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_networkTxtbxKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER)
+        {
+            databasePasswordTxtbx.requestFocus();
+        }
+    }//GEN-LAST:event_networkTxtbxKeyPressed
+
+    private void databasePasswordTxtbxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_databasePasswordTxtbxKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER)
+        {
+            databaseBttn.doClick();
+        }
+    }//GEN-LAST:event_databasePasswordTxtbxKeyPressed
+
+    private void userTxtbxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_userTxtbxKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER)
+        {
+            fNameTxtbx.requestFocus();
+        }
+    }//GEN-LAST:event_userTxtbxKeyPressed
+
+    private void fNameTxtbxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fNameTxtbxKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER)
+        {
+            lNameTxtbx.requestFocus();
+        }
+    }//GEN-LAST:event_fNameTxtbxKeyPressed
+
+    private void passTxtbxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passTxtbxKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER)
+        {
+            userBttn.doClick();
+        }
+    }//GEN-LAST:event_passTxtbxKeyPressed
+
+    private void lNameTxtbxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lNameTxtbxKeyPressed
+    if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER)
+        {
+            dept1Combo.requestFocus();
+        }
+    }//GEN-LAST:event_lNameTxtbxKeyPressed
+
+    private void dept1ComboKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dept1ComboKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER)
+        {
+            dept2Combo.requestFocus();
+        }
+    }//GEN-LAST:event_dept1ComboKeyPressed
+
+    private void dept2ComboKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dept2ComboKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER)
+        {
+            dept3Combo.requestFocus();
+        }
+    }//GEN-LAST:event_dept2ComboKeyPressed
+
+    private void dept3ComboKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dept3ComboKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER)
+        {
+            passTxtbx.requestFocus();
+        }
+    }//GEN-LAST:event_dept3ComboKeyPressed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        dispose();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -456,6 +639,9 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
