@@ -140,16 +140,17 @@ public class dbConnection
      public boolean createLifeguardTable()
      {
          int count = 1;
-         String command = "CREATE TABLE `lifeguard` (" +
-        "  `ID` int(4) NOT NULL AUTO_INCREMENT," +
-        "  `shift_date` date NOT NULL," +
-        "  `start_time` time NOT NULL," +
-        "  `end_time` time NOT NULL," +
-        "  `staff1` varchar(65) NOT NULL," +
-        "  `staff2` varchar(65) NOT NULL," +
-        "  `staff3` varchar(65) NOT NULL," +
-        "  PRIMARY KEY (ID)" +
-        ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
+         String command = "CREATE TABLE `lifeguard` ("
+                 + "  `ID` int(4) NOT NULL AUTO_INCREMENT,"
+                 + "  `shift_date` date NOT NULL,"
+                 + "  `start_time` time NOT NULL,"
+                 + "  `end_time` time NOT NULL,"
+                 + "  `location` varchar(65) NOT NULL,"
+                 + "  `staff1` varchar(65) NOT NULL,"
+                 + "  `staff2` varchar(65) NOT NULL,"
+                 + "  `staff3` varchar(65) NOT NULL,"
+                 + "  PRIMARY KEY (ID)"
+                 + ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
          
          try
          {
@@ -171,16 +172,17 @@ public class dbConnection
      public boolean createLTSTable()
      {
          int count = 1;
-         String command = "CREATE TABLE `LTS_Shift` (" +
-        "  `ID` int(4) NOT NULL AUTO_INCREMENT," +
-        "  `staff` varchar(65) NOT NULL," +
-        "  `shift_day` varchar(10) NOT NULL," +
-        "  `start_time` time NOT NULL," +
-        "  `end_time` time NOT NULL," +
-        "  `start_date` date NOT NULL," +
-        "  `end_date` date NOT NULL," +
-        "  PRIMARY KEY (ID)" +
-        ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
+         String command = "CREATE TABLE `LTS_Shift` ("
+                 + "  `ID` int(4) NOT NULL AUTO_INCREMENT,"
+                 + "  `staff` varchar(65) NOT NULL,"
+                 + "  `shift_day` varchar(10) NOT NULL,"
+                 + "  `location` varchar(65) NOT NULL,"
+                 + "  `start_time` time NOT NULL,"
+                 + "  `end_time` time NOT NULL,"
+                 + "  `start_date` date NOT NULL,"
+                 + "  `end_date` date NOT NULL,"
+                 + "  PRIMARY KEY (ID)"
+                 + ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
          
          try
          {
@@ -202,15 +204,16 @@ public class dbConnection
      public boolean createCoversTable()
      {
          int count = 1;
-         String command = "CREATE TABLE `LTS_Covers` (" +
-        "  `ID` int(4) NOT NULL AUTO_INCREMENT," +
-        "  `cover_date` date NOT NULL," +
-        "  `start_time` time NOT NULL," +
-        "  `end_time` time NOT NULL," +
-        "  `staff` varchar(65) NOT NULL," +
-        "  `cover_for` varchar(65) NOT NULL," +
-        "  PRIMARY KEY (ID)" +
-        ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
+         String command = "CREATE TABLE `LTS_Covers` ("
+                 + "  `ID` int(4) NOT NULL AUTO_INCREMENT,"
+                 + "  `cover_date` date NOT NULL,"
+                 + "  `start_time` time NOT NULL,"
+                 + "  `end_time` time NOT NULL,"
+                 + "  `location` varchar(65) NOT NULL,"
+                 + "  `staff` varchar(65) NOT NULL,"
+                 + "  `cover_for` varchar(65) NOT NULL,"
+                 + "  PRIMARY KEY (ID)"
+                 + ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
          
          try
          {
@@ -258,6 +261,57 @@ public class dbConnection
          String command = "ALTER TABLE `lifeguard`" +
         "  ADD KEY `staff1` (`staff1`)," +
         "  ADD CONSTRAINT `staffFK` FOREIGN KEY (`staff1`) REFERENCES `users` (`username`)";
+         
+         try
+         {
+             ps1 = conn.prepareStatement(command);
+             count = ps1.executeUpdate();
+         }
+         catch (SQLException ex)
+        {
+            JOptionPane.showMessageDialog(null, command + ex);
+        }
+         boolean result = false ;
+         if (count == 0)
+         {
+             result = true;
+         }
+        return result;
+     }
+     
+     public boolean createLocationTable()
+     {
+         int count = 1;
+         String command = "CREATE TABLE `location` ("
+                 + "  `ID` int(4) NOT NULL AUTO_INCREMENT,"
+                 + "  `Location` varchar(65) NOT NULL,"
+                 + "  `lifeguard` tinyint(1) DEFAULT NULL,"
+                 + "  `lts` tinyint(1) DEFAULT NULL,"
+                 + "  `gym` tinyint(1) DEFAULT NULL,"
+                 + "  PRIMARY KEY (ID)"
+                 + ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
+         
+         try
+         {
+             ps1 = conn.prepareStatement(command);
+             count = ps1.executeUpdate();
+         }
+         catch (SQLException ex)
+        {
+            JOptionPane.showMessageDialog(null, command + ex);
+        }
+         boolean result = false ;
+         if (count == 0)
+         {
+             result = true;
+         }
+        return result;
+     }
+     
+     public boolean insertLocationEntry()
+     {
+         int count = 1;
+         String command = "INSERT INTO `location` (`ID`, `Location`, `lifeguard`, `lts`, `gym`) VALUES (1, 'None', 1, 1, 1)";
          
          try
          {

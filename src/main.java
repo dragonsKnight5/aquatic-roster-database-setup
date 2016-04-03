@@ -1,3 +1,6 @@
+
+import javax.swing.JOptionPane;
+
 /*
  * Copyright 2016 james.
  *
@@ -74,6 +77,8 @@ public class main extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -141,7 +146,6 @@ public class main extends javax.swing.JFrame {
         });
 
         databaseLbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        databaseLbl.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel8.setText("Username:");
 
@@ -220,7 +224,6 @@ public class main extends javax.swing.JFrame {
         });
 
         userLbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        userLbl.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jMenu1.setText("File");
 
@@ -233,6 +236,18 @@ public class main extends javax.swing.JFrame {
         jMenu1.add(jMenuItem1);
 
         jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Help");
+
+        jMenuItem2.setText("About");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem2);
+
+        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -414,59 +429,60 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_connectBttnActionPerformed
 
     private void databaseBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_databaseBttnActionPerformed
-        String dataPassword = new String (databasePasswordTxtbx.getPassword());
-        String password = new String (passwordTxtbx.getPassword());
+        String dataPassword = new String(databasePasswordTxtbx.getPassword());
+        String password = new String(passwordTxtbx.getPassword());
         System.out.println("Create Database");
         boolean result = connection.createDatabase();
-        if (result)
-        {
+        if (result) {
             connection.close();
             result = connection.secondConnect(usernameTxtbx.getText(), password, addressTxtbx.getText());
-            
-            if (result)
-            {
+
+            if (result) {
                 System.out.println("Create User Table");
                 result = connection.createUserTable();
-                if (result)
-                {
+                if (result) {
                     System.out.println("Create Lifeguard Table");
                     result = connection.createLifeguardTable();
-                    
-                    if (result)
-                    {
+
+                    if (result) {
                         System.out.println("Create LTS Shift Table");
                         result = connection.createLTSTable();
-                        
-                        if (result)
-                        {
+
+                        if (result) {
                             System.out.println("Create LTS Cover Table");
-                             result = connection.createCoversTable();
-                             
-                             if (result)
-                             {
-                                 System.out.println("Add Keys And Constraints To Lifeguard Table");
-                                 result = connection.alterLifeguardTable();
-                                 
-                                 if (result)
-                                 {
-                                     System.out.println("Create Database User");
-                                     result = connection.databaseUser(networkTxtbx.getText(), dataPassword);
-                                     if (result)
-                                     {
-                                         System.out.println("Grant Database User Privilages");
+                            result = connection.createCoversTable();
+
+                            if (result) {
+                                System.out.println("Add Keys And Constraints To Lifeguard Table");
+                                result = connection.alterLifeguardTable();
+
+                                if (result) {
+                                    System.out.println("Create Database User");
+                                    result = connection.databaseUser(networkTxtbx.getText(), dataPassword);
+                                    if (result) {
+                                        System.out.println("Grant Database User Privilages");
                                         result = connection.databaseGrants(networkTxtbx.getText());
-                                        
-                                        if (result)
-                                        {
-                                            databaseLbl.setText("Database Configured");
-                                            
-                                            databaseBttn.setEnabled(false);
-                                            userBttn.setEnabled(true);
-                                            userTxtbx.requestFocus();
+
+                                        if (result) {
+                                            System.out.println("Create Location Table");
+                                            result = connection.createLocationTable();
+
+                                            if (result) {
+                                                System.out.println("Insert First Location Entry");
+                                                result = connection.insertLocationEntry();
+
+                                                if (result) {
+                                                    databaseLbl.setText("Database Configured");
+
+                                                    databaseBttn.setEnabled(false);
+                                                    userBttn.setEnabled(true);
+                                                    userTxtbx.requestFocus();
+                                                }
+                                            }
                                         }
-                                     }
-                                 }
-                             }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -579,6 +595,12 @@ public class main extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        JOptionPane.showMessageDialog(this, "Database setup companion for \n"
+                + "the aquatic roster software\n"
+                + "Version 0.4");
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -640,8 +662,10 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
