@@ -330,10 +330,10 @@ public class dbConnection
         return result;
      }
      
-     public boolean databaseUser(String network, String databasePassword)
+     public boolean databaseUser(String databaseUser, String network, String databasePassword)
      {
          int count = 1;
-         String command = "create user \'staff\'@\'" + network + "\' identified by \'" + databasePassword +"\'";
+         String command = "create user \'" +databaseUser + "\'@\'" + network + "\' identified by \'" + databasePassword +"\'";
          System.out.println(command);
          try
          {
