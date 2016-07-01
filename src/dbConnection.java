@@ -43,7 +43,8 @@ public class dbConnection
         catch (SQLException ex)
         {
             System.out.println(ex);
-            JOptionPane.showMessageDialog(null, "Connection Failed,\nEither no database is available or login credentials are incorrect");
+            System.out.println("username: " + username + " password: " + password + " address: " + address);
+            JOptionPane.showMessageDialog(null, "Connection Failed,\n");
             isConnected = false;
         }
         return isConnected;
@@ -85,7 +86,7 @@ public class dbConnection
      public boolean createDatabase()
      {
          int count = 0;
-         String command = "create database staff";
+         String command = "CREATE DATABASE `staff` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;";
          try
          {
              ps1 = conn.prepareStatement(command);
@@ -93,7 +94,7 @@ public class dbConnection
          }
          catch (SQLException ex)
         {
-            JOptionPane.showMessageDialog(null, command + ex);
+            JOptionPane.showMessageDialog(null, command + "\n" + ex);
         }
          boolean result = false ;
          if (count == 1)
@@ -127,7 +128,7 @@ public class dbConnection
          }
          catch (SQLException ex)
         {
-            JOptionPane.showMessageDialog(null, command + ex);
+            JOptionPane.showMessageDialog(null, command + "\n"+ ex);
         }
          boolean result = false ;
          if (count == 0)
@@ -158,7 +159,7 @@ public class dbConnection
          }
          catch (SQLException ex)
         {
-            JOptionPane.showMessageDialog(null, command + ex);
+            JOptionPane.showMessageDialog(null, command + "\n" + ex);
         }
          boolean result = false ;
          if (count == 0)
@@ -182,6 +183,31 @@ public class dbConnection
                  + "  `end_date` date NOT NULL,"
                  + "  PRIMARY KEY (ID)"
                  + ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
+         
+         try
+         {
+             ps1 = conn.prepareStatement(command);
+             count = ps1.executeUpdate();
+         }
+         catch (SQLException ex)
+        {
+            JOptionPane.showMessageDialog(null, command + "\n" + ex);
+        }
+         boolean result = false ;
+         if (count == 0)
+         {
+             result = true;
+         }
+        return result;
+     }
+     
+     public boolean alterLtsTable()
+     {
+         int count = 1;
+         String command = "ALTER TABLE `LTS_Shift`" +
+            "  ADD KEY `staff` (`staff`)," +
+            "  ADD KEY `staff_2` (`staff`)," +
+            "  ADD CONSTRAINT `staffFK` FOREIGN KEY (`staff`) REFERENCES `users` (`username`) ON UPDATE CASCADE";
          
          try
          {
@@ -221,7 +247,33 @@ public class dbConnection
          }
          catch (SQLException ex)
         {
-            JOptionPane.showMessageDialog(null, command + ex);
+            JOptionPane.showMessageDialog(null, command + "\n" + ex);
+        }
+         boolean result = false ;
+         if (count == 0)
+         {
+             result = true;
+         }
+        return result;
+     }
+     
+     public boolean alterCoversTable()
+     {
+         int count = 1;
+         String command = "ALTER TABLE `LTS_Covers`" +
+        "  ADD KEY `staff` (`staff`)," +
+        "  ADD KEY `cover_for` (`cover_for`)," +
+        "  ADD CONSTRAINT `cover_foreign_key` FOREIGN KEY (`cover_for`) REFERENCES `users` (`username`) ON UPDATE CASCADE";
+         
+         try
+         {
+             ps1 = conn.prepareStatement(command);
+             count = ps1.executeUpdate();
+         }
+         catch (SQLException ex)
+        {
+            System.out.println(command);
+            JOptionPane.showMessageDialog(null, command + "\n" + ex);
         }
          boolean result = false ;
          if (count == 0)
@@ -259,7 +311,7 @@ public class dbConnection
          int count = 1;
          String command = "ALTER TABLE `lifeguard`" +
         "  ADD KEY `staff1` (`staff1`)," +
-        "  ADD CONSTRAINT `staffFK` FOREIGN KEY (`staff1`) REFERENCES `users` (`username`)";
+        "  ADD CONSTRAINT `lifeguard_ibfk_1` FOREIGN KEY (`staff1`) REFERENCES `users` (`username`) ON UPDATE CASCADE";
          
          try
          {
@@ -281,14 +333,15 @@ public class dbConnection
      public boolean createLocationTable()
      {
          int count = 1;
-         String command = "CREATE TABLE `location` ("
-                 + "  `ID` int(4) NOT NULL AUTO_INCREMENT,"
-                 + "  `Location` varchar(65) NOT NULL,"
-                 + "  `lifeguard` tinyint(1) DEFAULT NULL,"
-                 + "  `lts` tinyint(1) DEFAULT NULL,"
-                 + "  `gym` tinyint(1) DEFAULT NULL,"
-                 + "  PRIMARY KEY (ID)"
-                 + ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
+         String command = "CREATE TABLE `location` (" +
+            "  `ID` int(4) NOT NULL AUTO_INCREMENT," +
+            "  `Location` varchar(65) NOT NULL," +
+            "  `lifeguard` tinyint(1) DEFAULT NULL," +
+            "  `lts` tinyint(1) DEFAULT NULL," +
+            "  `gym` tinyint(1) DEFAULT NULL," +
+            "  `isc` tinyint(1) DEFAULT NULL," +
+            "  PRIMARY KEY (ID)" +
+            ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
          
          try
          {
@@ -297,7 +350,7 @@ public class dbConnection
          }
          catch (SQLException ex)
         {
-            JOptionPane.showMessageDialog(null, command + ex);
+            System.out.println(command + "\n" + ex);
         }
          boolean result = false ;
          if (count == 0)
@@ -319,13 +372,15 @@ public class dbConnection
          }
          catch (SQLException ex)
         {
-            JOptionPane.showMessageDialog(null, command + ex);
+            System.out.println(ex);
+            JOptionPane.showMessageDialog(null, command + "\n" + ex);
         }
          boolean result = false ;
-         if (count == 0)
+         if (count == 1)
          {
              result = true;
          }
+         System.out.println("count: " + count + " result: " + result);
         return result;
      }
      
@@ -344,18 +399,19 @@ public class dbConnection
             JOptionPane.showMessageDialog(null, command + ex);
             System.out.println(ex);
         }
-         boolean result = false ;
+         boolean result = false;
          if (count == 0)
          {
              result = true;
          }
+         System.out.println("count: " + count + " result: " + result);
         return result;
      }
      
-     public boolean databaseGrants(String network)
+     public boolean databaseGrants(String network, String databaseUser)
      {
          int count = 1;
-         String command = "grant select, insert, delete, alter on staff.* to \'staff\'@\'" + network +"\'";
+         String command = "grant select, insert, delete, alter on staff.* to \'" + databaseUser + "\'@\'" + network +"\'";
          System.out.println(command);
          try
          {
@@ -366,6 +422,131 @@ public class dbConnection
         {
             JOptionPane.showMessageDialog(null, command + ex);
             System.out.println(ex);
+        }
+         boolean result = false ;
+         if (count == 0)
+         {
+             result = true;
+         }
+        return result;
+     }
+     
+     public boolean createIscTable()
+     {
+         int count = 1;
+         String command = "CREATE TABLE `ISC` ("
+                 + "  `ID` int(4) NOT NULL AUTO_INCREMENT,"
+                 + "  `shift_date` date NOT NULL,"
+                 + "  `start_time` time NOT NULL,"
+                 + "  `end_time` time NOT NULL,"
+                 + "  `location` varchar(65) NOT NULL,"
+                 + "  `staff1` varchar(65) NOT NULL,"
+                 + "  `staff2` varchar(65) NOT NULL,"
+                 + "  `staff3` varchar(65) NOT NULL,"
+                 + "  `staff4` varchar(65) NOT NULL,"
+                 + "  `onCall` varchar(65) NOT NULL,"
+                 + "  PRIMARY KEY (ID)"
+                 + ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
+         
+         try
+         {
+             ps1 = conn.prepareStatement(command);
+             count = ps1.executeUpdate();
+         }
+         catch (SQLException ex)
+        {
+            JOptionPane.showMessageDialog(null, command + "\n" + ex);
+        }
+         boolean result = false ;
+         if (count == 0)
+         {
+             result = true;
+         }
+        return result;
+     }
+     
+     public boolean alterIscTable()
+     {
+         int count = 1;
+         String command = "ALTER TABLE `ISC`" +
+        "  ADD KEY `staff1` (`staff1`)," +
+        "  ADD KEY `staff2` (`staff2`)," +
+        "  ADD KEY `staff3` (`staff3`)," +
+        "  ADD KEY `staff4` (`staff4`)," +
+        "  ADD CONSTRAINT `staff4FK` FOREIGN KEY (`staff4`) REFERENCES `users` (`username`) ON UPDATE CASCADE," +
+        "  ADD CONSTRAINT `staff1FK` FOREIGN KEY (`staff1`) REFERENCES `users` (`username`) ON UPDATE CASCADE," +
+        "  ADD CONSTRAINT `staff2FK` FOREIGN KEY (`staff2`) REFERENCES `users` (`username`) ON UPDATE CASCADE," +
+        "  ADD CONSTRAINT `staff3FK` FOREIGN KEY (`staff3`) REFERENCES `users` (`username`) ON UPDATE CASCADE";
+         
+         try
+         {
+             ps1 = conn.prepareStatement(command);
+             count = ps1.executeUpdate();
+         }
+         catch (SQLException ex)
+        {
+            JOptionPane.showMessageDialog(null, command + ex);
+        }
+         boolean result = false ;
+         if (count == 0)
+         {
+             result = true;
+         }
+        return result;
+     }
+     
+     public boolean createAvailabilityTable()
+     {
+         int count = 1;
+         String command = "CREATE TABLE `availability` (" +
+        "  `ID` int(5) NOT NULL AUTO_INCREMENT," +
+        "  `username` varchar(65) NOT NULL," +
+        "  `monday` varchar(9) DEFAULT NULL," +
+        "  `tuesday` varchar(9) DEFAULT NULL," +
+        "  `wednesday` varchar(9) DEFAULT NULL," +
+        "  `thursday` varchar(9) DEFAULT NULL," +
+        "  `friday` varchar(9) DEFAULT NULL," +
+        "  `saturday` varchar(9) DEFAULT NULL," +
+        "  `sunday` varchar(9) DEFAULT NULL," +
+        "  `department` varchar(9) DEFAULT NULL," +
+        "  `location` varchar(65) NOT NULL," +
+        "  `weekStarting` date NOT NULL," +
+        "  PRIMARY KEY (ID)" +
+        ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+         
+         try
+         {
+             ps1 = conn.prepareStatement(command);
+             count = ps1.executeUpdate();
+         }
+         catch (SQLException ex)
+        {
+            JOptionPane.showMessageDialog(null, command +"\n"+ ex);
+        }
+         boolean result = false ;
+         if (count == 0)
+         {
+             result = true;
+         }
+        return result;
+     }
+     
+     public boolean alterAvailabilityTable()
+     {
+         int count = 1;
+         String command = "ALTER TABLE `availability`" +
+            "ADD KEY `username` (`username`)," +
+            "ADD CONSTRAINT `usernameFK` FOREIGN KEY (`username`) REFERENCES `users` (`username`) ON UPDATE CASCADE";
+         
+         try
+         {
+             ps1 = conn.prepareStatement(command);
+             count = ps1.executeUpdate();
+         }
+         catch (SQLException ex)
+        {
+            System.out.println(command);
+            JOptionPane.showMessageDialog(null, command + ex);
         }
          boolean result = false ;
          if (count == 0)
