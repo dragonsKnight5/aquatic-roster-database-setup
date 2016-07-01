@@ -411,7 +411,7 @@ public class dbConnection
      public boolean databaseGrants(String network, String databaseUser)
      {
          int count = 1;
-         String command = "grant select, insert, delete, alter on staff.* to \'" + databaseUser + "\'@\'" + network +"\'";
+         String command = "grant select, insert, update, delete, alter on staff.* to \'" + databaseUser + "\'@\'" + network +"\'";
          System.out.println(command);
          try
          {
