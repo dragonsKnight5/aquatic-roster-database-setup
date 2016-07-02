@@ -363,7 +363,7 @@ public class dbConnection
      public boolean insertLocationEntry()
      {
          int count = 1;
-         String command = "INSERT INTO `location` (`ID`, `Location`, `lifeguard`, `lts`, `gym`) VALUES (1, 'None', 1, 1, 1)";
+         String command = "INSERT INTO `location` (`ID`, `Location`, `lifeguard`, `lts`, `gym`) VALUES (1, 'None', 1, 1, 1, 1)";
          
          try
          {
@@ -434,7 +434,7 @@ public class dbConnection
      public boolean createIscTable()
      {
          int count = 1;
-         String command = "CREATE TABLE `ISC` ("
+         String command = "CREATE TABLE `isc` ("
                  + "  `ID` int(4) NOT NULL AUTO_INCREMENT,"
                  + "  `shift_date` date NOT NULL,"
                  + "  `start_time` time NOT NULL,"
