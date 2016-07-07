@@ -117,6 +117,7 @@ public class dbConnection
         "  `department_3` varchar(25) DEFAULT NULL," +
         "  `supervisor` tinyint(1) DEFAULT NULL," +
         "  `password` varchar(65) NOT NULL," +
+        "  `contact_number` varchar(16) NOT NULL," +
         "  PRIMARY KEY (ID)," +
         "  UNIQUE (username)" +
         ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
