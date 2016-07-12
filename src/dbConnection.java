@@ -287,8 +287,8 @@ public class dbConnection
      public boolean  addUser(String username, String firstName, String lastName, String department1, String department2, String department3, boolean supervisor, String password)
      {
          int count = 0;
-         String command = "insert into users (username, first_name, last_name, department_1, department_2, department_3, supervisor, password) values  " 
-                +"(\"" + username + "\", \"" + firstName + "\", \"" + lastName + "\", \"" + department1 + "\", \"" + department2 + "\", \"" + department3 + "\", " + supervisor + ", \"" + password + "\")";
+         String command = "insert into users (username, first_name, last_name, department_1, department_2, department_3, supervisor, password, contact_number) values  " 
+                +"(\"" + username + "\", \"" + firstName + "\", \"" + lastName + "\", \"" + department1 + "\", \"" + department2 + "\", \"" + department3 + "\", " + supervisor + ", \"" + password + "\",\"\" )";
          
          try
          {
@@ -364,7 +364,7 @@ public class dbConnection
      public boolean insertLocationEntry()
      {
          int count = 1;
-         String command = "INSERT INTO `location` (`ID`, `Location`, `lifeguard`, `lts`, `gym`) VALUES (1, 'None', 1, 1, 1, 1)";
+         String command = "INSERT INTO `location` (`ID`, `Location`, `lifeguard`, `lts`, `gym`, `isc`) VALUES ('1', 'None', '1', '1', '1', '1');";
          
          try
          {
@@ -469,7 +469,7 @@ public class dbConnection
      public boolean alterIscTable()
      {
          int count = 1;
-         String command = "ALTER TABLE `ISC`" +
+         String command = "ALTER TABLE `isc`" +
         "  ADD KEY `staff1` (`staff1`)," +
         "  ADD KEY `staff2` (`staff2`)," +
         "  ADD KEY `staff3` (`staff3`)," +
