@@ -503,12 +503,19 @@ public class dbConnection
         "  `ID` int(5) NOT NULL AUTO_INCREMENT," +
         "  `username` varchar(65) NOT NULL," +
         "  `monday` varchar(9) DEFAULT NULL," +
+        "  `mondayNote` varchar(40) DEFAULT NULL," +
         "  `tuesday` varchar(9) DEFAULT NULL," +
+        "  `tuesdayNote` varchar(40) DEFAULT NULL," +
         "  `wednesday` varchar(9) DEFAULT NULL," +
+        "  `wednesdayNote` varchar(40) DEFAULT NULL," +
         "  `thursday` varchar(9) DEFAULT NULL," +
+        "  `thursdayNote` varchar(40) DEFAULT NULL," +
         "  `friday` varchar(9) DEFAULT NULL," +
+        "  `fridayNote` varchar(40) DEFAULT NULL," +
         "  `saturday` varchar(9) DEFAULT NULL," +
+        "  `saturdayNote` varchar(40) DEFAULT NULL," +
         "  `sunday` varchar(9) DEFAULT NULL," +
+        "  `sundayNote` varchar(40) DEFAULT NULL," +
         "  `department` varchar(9) DEFAULT NULL," +
         "  `location` varchar(65) NOT NULL," +
         "  `weekStarting` date NOT NULL," +
